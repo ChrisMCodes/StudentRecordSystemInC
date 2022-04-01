@@ -17,6 +17,15 @@
 #include <string.h>
 #include "SRSheader.h"
 
+struct Student {
+	int id;
+	char firstName[50];
+	char lastName[50];
+	float gpa;
+	int numCredits;
+	int nextStudentId;
+};
+
 int main() {
 
 	int optionChoice = -1;
