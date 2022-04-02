@@ -1,5 +1,7 @@
 #pragma once
 
+typedef struct Student;
+
 /**
  *
  * Declarations for functions in StudentRecordSystem.cpp
@@ -8,7 +10,7 @@
 
 void welcomeMessage();
 int getUserOptionChoice();
-void viewAllRecords();
+int cycleThroughAllRecords(int option);
 
 /**
 *

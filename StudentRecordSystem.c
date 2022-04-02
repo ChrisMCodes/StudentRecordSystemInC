@@ -8,7 +8,7 @@
 *
 * Rather than a true database, data is stored in a .txt file
 *
-* Updated: 2022-03-30
+* Updated: 2022-04-01
 *
  */
 
@@ -48,7 +48,9 @@ int main() {
 	switch (optionChoice) {
 	case 1:
 		printf("Displaying all available records:\n");
-		viewAllRecords();
+		int numLines = cycleThroughAllRecords(1);
+		// TEST: logic behind line count
+		printf("Num Lines: %d\n", numLines);
 		break;
 	default:
 		printf("Goodbye.\n");
@@ -118,19 +120,21 @@ int getUserOptionChoice() {
 	return choice;
 }
 
+
 /**
  *
- * Function: viewAllRecords()
- * @params: none
- * @return: void
- *
- * Purpose: prints all records for user
- *
+ * Function: cycleThroughAllRecords()
+ * @params: int option (1 = display all records)
+ * @return: int numLines (number of lines in the file)
+ * 
+ * purpose: Cycles through file
  */
 
-void viewAllRecords() {
-	FILE* f; 
+int cycleThroughAllRecords(int option) {
+
+	FILE* f;
 	int errorCode = fopen_s(&f, "studentrecords.txt", "r");
+	int numLines = 0;
 
 	if (errorCode != 0) {
 		printf("No records to display.\n");
@@ -138,11 +142,15 @@ void viewAllRecords() {
 	else {
 		char c[150];
 		while (fgets(c, 150, f) != NULL) {
-			printf("%s", c);
+
+			if (option == 1) {
+				printf("%s", c);
+			}
+			numLines++;
 		}
 	}
 
 	printf("\n");
 
-	return;
+	return numLines;
 }
