@@ -7,10 +7,12 @@ typedef struct Student;
  * Declarations for functions in StudentRecordSystem.cpp
  *
  */
-
+int main();
 void welcomeMessage();
 int getUserOptionChoice();
 int cycleThroughAllRecords(int option);
+int chooseStudentRecordById();
+void clearBuffer();
 
 /**
 *

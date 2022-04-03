@@ -8,7 +8,7 @@
 *
 * Rather than a true database, data is stored in a .txt file
 *
-* Updated: 2022-04-01
+* Updated: 2022-04-02
 *
  */
 
@@ -29,6 +29,8 @@ struct Student {
 int main() {
 
 	int optionChoice = -1;
+	int numLines;
+	int recordNum;
 
 	// print welcome message
 	welcomeMessage();
@@ -46,15 +48,17 @@ int main() {
 	//
 
 	switch (optionChoice) {
-	case 1:
-		printf("Displaying all available records:\n");
-		int numLines = cycleThroughAllRecords(1);
-		// TEST: logic behind line count
-		printf("Num Lines: %d\n", numLines);
-		break;
-	default:
-		printf("Goodbye.\n");
-		break;
+		case 1:
+			printf("Displaying all available records:\n");
+			numLines = cycleThroughAllRecords(1);
+			break;
+		case 2:
+			recordNum = chooseStudentRecordById();
+			printf("You chose student number: %d\n\n", recordNum);
+			break;
+		default:
+			printf("Goodbye.\n");
+			break;
 	}
 
 
@@ -109,10 +113,7 @@ int getUserOptionChoice() {
 
 		// catch bad type input
 		if (invalidChoice) {
-			printf("\nSorry, I did not recognize your choice. Please enter a valid integer between 1 and 5.\n");
-			// clearing buffer
-			int ch;
-			while ((ch = getchar()) != '\n');
+			clearBuffer();
 		}
 	}
 	printf("\n");
@@ -153,4 +154,48 @@ int cycleThroughAllRecords(int option) {
 	printf("\n");
 
 	return numLines;
+}
+
+
+/**
+ *
+ * Function: chooseStudentRecordById()
+ * @params: None
+ * @return: int studentId
+ *
+ * purpose: Gets valid student id to look up from user
+ * 
+ */
+
+int chooseStudentRecordById() {
+	int studentId = -1;
+	int numLines = cycleThroughAllRecords(2);
+
+	while (studentId < 1 || studentId > numLines) {
+		printf("Please enter a valid student ID between 1 and %d: ", numLines);
+		scanf_s("%d", &studentId);
+
+		if (studentId < 1 || studentId > numLines) {
+			clearBuffer();
+		}
+	}
+
+	return studentId;
+}
+
+/**
+ *
+ * Function: clearBuffer()
+ * @params: none
+ * @return: none
+ * 
+ * purpose: clears buffer for ongoing input
+ * 
+ */
+
+void clearBuffer() {
+	printf("\nSorry, I did not recognize your choice.\n");
+	// clearing buffer
+	int ch;
+	while ((ch = getchar()) != '\n');
 }
